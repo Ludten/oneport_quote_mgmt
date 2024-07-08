@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import AppSlice from "./AppSlice";
-import rootSaga from "./rootSaga";
+import AppSlice from "./slice/AppSlice";
+import QuoteSlice from "./slice/QuoteSlice";
+import rootSaga from "./sagas/rootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
-    AppSlice
+    AppSlice,
+    QuoteSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
