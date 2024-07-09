@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Calendar from "./calendar";
-
 import { fetchQuotesStart } from "../store/slice/AppSlice";
-
 import type { RootState } from "../store/rootStore";
+
 import Loader from "../common/loader";
 import ErrorPage from "../common/error";
+
+import Calendar from "./calendar";
 
 const Index = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
