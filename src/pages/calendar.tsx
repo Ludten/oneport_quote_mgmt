@@ -1,11 +1,27 @@
 import { useState } from "react";
+
+import CalendarQuotes from "../common/calendarQuotes";
+
 import { aggregateQuotesByDay } from "../helper/utils";
+
 import type { QuoteType } from "../types/QuoteType";
 
 const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 const Calendar = ({ currentDate, quotes }: { currentDate: Date, quotes:QuoteType[] }) => {
   const [selectedDate, setSelectedDate] = useState<string>('');
+  const [dateQuotes, setDateQuotes] = useState(false);
+
+  const openDateQuotes = (quotesdate: string) => {
+    setSelectedDate(quotesdate);
+    setDateQuotes(true);
+  };
+
+  const closesetDateQuotes = () => {
+    setSelectedDate('');
+    setDateQuotes(false);
+  }
+
   const getFirstDayOfMonth = (year: number, month: number) => {
     return new Date(year, month, 1).getDay();
   };
@@ -37,7 +53,7 @@ const Calendar = ({ currentDate, quotes }: { currentDate: Date, quotes:QuoteType
               return (
                   <div 
                     key={date} 
-                    onClick={ () => setSelectedDate(date) }
+                    onClick={ () => openDateQuotes(date) }
                     className={`lg:h-[8.375rem] flex flex-col py-2 lg:p-2 gap-2 lg:gap-10 items-center lg:items-start 
                     border border-[#E8E8E8] ${selectedDate == date ? 'bg-[#1F2937] dark:bg-white' : ''}`}
                   >
@@ -62,6 +78,7 @@ const Calendar = ({ currentDate, quotes }: { currentDate: Date, quotes:QuoteType
               );
           })}
       </div>
+      <CalendarQuotes isOpen={dateQuotes} onClose={closesetDateQuotes} quotesdate={selectedDate} />
     </div>
   );
 };
