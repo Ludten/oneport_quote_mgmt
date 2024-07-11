@@ -73,7 +73,7 @@ const QuoteDetails = ({
             <div className="px-4 lg:px-0 flex justify-between items-center lg:gap-3 h-full w-full lg:w-auto">
               <div className="flex items-center gap-4">
                 <button
-                  onClick={() => editQuote(quote?._id ?? "")}
+                  onClick={() => editQuote(quote !== undefined ? quote._id : "")}
                   className="flex px-4 py-2 justify-center items-center w-[6.25] h-9 text-xs font-medium rounded-3xl bg-[#296FD8]"
                 >
                   Edit Quote
@@ -95,7 +95,7 @@ const QuoteDetails = ({
             <div className="flex justify-center items-center text-xl gap-3">
               <h3 className="text-[#1F2937] font-medium">Quote Details</h3>
               <span className="text-[#6B7280]">
-                #{shortenID(quote?._id ?? "")}
+                #{shortenID(quote !== undefined ? quote._id : "")}
               </span>
             </div>
           </div>

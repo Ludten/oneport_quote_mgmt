@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 package-lock.json
 .env
+.dockerignore
+buildsript
+dockerfile
+nginx.conf

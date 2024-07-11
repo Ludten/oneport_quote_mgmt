@@ -35,7 +35,7 @@ const NewQuote = () => {
   };
 
   const quote = useSelector((state: RootState) =>
-    selectQuoteById(state, params.id ?? ""),
+    selectQuoteById(state, params.id !== undefined ? params.id : ""),
   );
 
   if (quote == undefined) {
@@ -45,10 +45,10 @@ const NewQuote = () => {
   }
 
   const [startDate, setStartDate] = useState<Date | null>(
-    new Date(quote?.quote_date ?? ""),
+    new Date(quote !== undefined ? quote.quote_date : ""),
   );
   const [endDate, setEndDate] = useState<Date | null>(
-    new Date(quote?.endTime ?? ""),
+    new Date(quote?.endTime !== undefined ? quote.endTime : ""),
   );
   const [timeSet, setTimeSet] = useState<boolean>(false);
   const [sections, setSections] = useState<Section[]>([
@@ -165,7 +165,7 @@ const NewQuote = () => {
     window.location.href = "/";
     setTimeout(() => {
       dispatch(removeDraftQuote(id));
-    }, 100);
+    }, 20);
   };
 
   return (
@@ -224,11 +224,11 @@ const NewQuote = () => {
                     className="relative flex items-center text-xs font-[#776D7D] border border-[#DBE3DC] rounded-[2rem] gap-1 h-7 px-1.5 lg:px-3 py-0.5 lg:py-1.5"
                   >
                     <span className="text-[#007003]">
-                      {formatTSDate(new Date(quote?.quote_date ?? ""))}
+                      {formatTSDate(startDate ? startDate : new Date())}
                     </span>
                     <span className="text-[#776D7D]">
-                      {formatTSTime(startDate ?? new Date())} -{" "}
-                      {formatTSTime(endDate ?? new Date())}
+                      {formatTSTime(startDate ? startDate : new Date())} -{" "}
+                      {formatTSTime(endDate ? endDate : new Date())}
                     </span>
                     <div className="flex w-5 justify-center items-center relative">
                       <div className="gg-chevron-down !w-0.5 !h-0.5" />
@@ -264,7 +264,7 @@ const NewQuote = () => {
                   <button
                     onMouseEnter={() => setShowTooltip(true)}
                     onMouseLeave={() => setShowTooltip(false)}
-                    onClick={() => handleRemoveDraft(params.id ?? "")}
+                    onClick={() => handleRemoveDraft(params.id !== undefined ? params.id : "")}
                     className="w-28 h-10 flex justify-center items-center text-sm text-[#C70024] border border-[#E5E7EB] bg-[#F9FAFB] rounded"
                   >
                     Cancel
@@ -292,7 +292,7 @@ const NewQuote = () => {
       <DraftQuoteDetails
         isOpen={quoteDetails}
         onClose={closeQuoteDetails}
-        quoteid={params.id ?? ""}
+        quoteid={params.id !== undefined ? params.id : ""}
       />
     </div>
   );
