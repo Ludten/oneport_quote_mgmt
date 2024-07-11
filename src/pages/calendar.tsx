@@ -10,6 +10,7 @@ import QuoteDetails from "../common/modals/quoteDetails";
 import {
   aggregateQuotesByDay,
   calculateSumTotal,
+  getDraftQuotesForDate,
   getQuotesForDate,
 } from "../helper/utils";
 
@@ -108,7 +109,8 @@ const Calendar = ({
             new Date().getDate() === new Date(date).getDate() &&
             new Date().getMonth() === month &&
             new Date().getFullYear() === year;
-          const dayQuotes = getQuotesForDate(quotes, new Date(date));
+            const dayQuotes = getQuotesForDate(quotes, new Date(date));
+            const dayDraftQuotes = getDraftQuotesForDate(draftquotes, new Date(date));
 
           return (
             <div
@@ -132,7 +134,7 @@ const Calendar = ({
                   <span
                     className={`border ${selectedDate == date ? "border-white bg-white text-[#374151]" : "border-[#98FF9B40] bg-[#98FF9B40] "} rounded p-0.5`}
                   >
-                    Total: ${calculateSumTotal(dayQuotes).toFixed(2)}
+                    Total: ${(calculateSumTotal(dayQuotes) + calculateSumTotal(dayDraftQuotes)).toFixed(2)}
                   </span>
                 </div>
               ) : null}

@@ -136,7 +136,7 @@ export function calculateTotalAmount(
   return totalAmount;
 }
 
-export function calculateSumTotal(quotes: QuoteType[]): number {
+export function calculateSumTotal(quotes: QuoteType[] | NewQuoteType[]): number {
   let sumTotal = 0;
 
   quotes.forEach((quote) => {
@@ -151,6 +151,20 @@ export function getQuotesForDate(
   quotes: QuoteType[],
   targetDate: Date,
 ): QuoteType[] {
+  return quotes.filter((quote) => {
+    const quoteDate = new Date(quote.quote_date);
+    return (
+      quoteDate.getUTCFullYear() === targetDate.getUTCFullYear() &&
+      quoteDate.getUTCMonth() === targetDate.getUTCMonth() &&
+      quoteDate.getUTCDate() === targetDate.getUTCDate()
+    );
+  });
+}
+
+export function getDraftQuotesForDate(
+  quotes: NewQuoteType[],
+  targetDate: Date,
+): NewQuoteType[] {
   return quotes.filter((quote) => {
     const quoteDate = new Date(quote.quote_date);
     return (
