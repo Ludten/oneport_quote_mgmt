@@ -90,7 +90,7 @@ const DraftQuoteDetails = ({
             <div className="flex justify-center items-center text-xl gap-3">
               <h3 className="text-[#1F2937] font-medium">Quote Details</h3>
               <span className="text-[#6B7280]">
-                #{shortenID(quote?.id ?? "")}
+                #{shortenID(quote !== undefined ? quote.id : "")}
               </span>
             </div>
           </div>
