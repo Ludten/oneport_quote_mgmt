@@ -1,21 +1,29 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
-import { getQuote } from '../../helper/loader';
-import { createQuoteFailure, createQuoteStart, createQuoteSuccess, 
-  editQuoteFailure, editQuoteStart, editQuoteSuccess, fetchQuoteFailure, 
-  fetchQuoteStart, fetchQuoteSuccess } from '../slice/QuoteSlice';
-import type { QuoteResponse } from '../../types/ResponseType';
-import { startEndDates } from '../../helper/utils';
-import { fetchQuotesStart } from '../slice/AppSlice';
-import { createQuote, editQuote } from '../../helper/serverops';
+import { takeLatest, call, put } from "redux-saga/effects";
+import { getQuote } from "../../helper/loader";
+import {
+  createQuoteFailure,
+  createQuoteStart,
+  createQuoteSuccess,
+  editQuoteFailure,
+  editQuoteStart,
+  editQuoteSuccess,
+  fetchQuoteFailure,
+  fetchQuoteStart,
+  fetchQuoteSuccess,
+} from "../slice/QuoteSlice";
+import type { QuoteResponse } from "../../types/ResponseType";
+import { startEndDates } from "../../helper/utils";
+import { fetchQuotesStart } from "../slice/AppSlice";
+import { createQuote, editQuote } from "../../helper/serverops";
 
 function* fetchQuoteSaga(action: ReturnType<typeof fetchQuoteStart>) {
   try {
     const { id } = action.payload;
-    const quoteResp: QuoteResponse = yield call(getQuote, id );
+    const quoteResp: QuoteResponse = yield call(getQuote, id);
     if (quoteResp.data) {
       yield put(fetchQuoteSuccess(quoteResp.data));
     } else {
-      throw new Error("Error fetching quote");      
+      throw new Error("Error fetching quote");
     }
   } catch (err) {
     const error = err as Error;
