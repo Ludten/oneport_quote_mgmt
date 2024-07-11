@@ -34,7 +34,6 @@ const CurrencySelect = ({
           </option>
         ))}
       </select>
-      (
       <div className="absolute -top-3.5 left-2 h-full flex items-center pointer-events-none">
         <CountryFlag
           countryCode={isCurrencyValid(value) ? Currencies[value] : ""}
@@ -42,7 +41,6 @@ const CurrencySelect = ({
           className="w-6 h-6 mr-2"
         />
       </div>
-      )
     </div>
   );
 };
